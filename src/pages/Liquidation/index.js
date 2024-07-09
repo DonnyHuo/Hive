@@ -1,4 +1,4 @@
-import { Switch, Checkbox } from "antd";
+import { Link } from "react-router-dom";
 
 const Liquidation = () => {
   return (
@@ -141,7 +141,11 @@ const Liquidation = () => {
                     </div>
                   </td>
                   <td className="text-right">
-                    <button className="activeBtn btn px-2 py-2 text-sm">Details</button>
+                    <Link to="/details">
+                      <button className="activeBtn btn px-2 py-2 text-sm">
+                        Details
+                      </button>
+                    </Link>
                   </td>
                 </tr>
                 <tr>
@@ -179,7 +183,10 @@ const Liquidation = () => {
                   </td>
                   <td className="text-right">
                     <button className="btn btn px-2 py-2 text-sm">
-                      <img className="w-5 mx-4" src={require('../../asserts/imgs/alarm.png')} />
+                      <img
+                        className="w-5 mx-4"
+                        src={require("../../asserts/imgs/alarm.png")}
+                      />
                     </button>
                   </td>
                 </tr>

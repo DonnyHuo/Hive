@@ -9,6 +9,7 @@ import { chainList } from "./utils/config";
 import { useDispatch } from "react-redux";
 import Market from "./pages/Market";
 import Liquidation from "./pages/Liquidation";
+import Details from "./pages/Dashboard/details";
 
 function App() {
   const { chainId } = useWeb3ModalAccount();
@@ -63,6 +64,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/market" element={<Market />}></Route>
           <Route path="/liquidation" element={<Liquidation />}></Route>
+          <Route path="/details" element={<Details />}></Route>
         </Routes>
       </div>
     </BrowserRouter>
