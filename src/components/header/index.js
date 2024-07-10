@@ -473,7 +473,7 @@ const Header = () => {
         </Link>
       </div>
 
-      <div className="flex items-center font-medium _hiddenM _links">
+      <div className="flex items-center font-medium _hiddenM btnStyle _links">
         <Link
           className={`ml-6 mr-6 ${
             location.pathname === "/dashboard" ? "_activeLink" : "_titleLink"
