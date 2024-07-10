@@ -1,6 +1,14 @@
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Switch, Checkbox } from "antd";
+import SupplyModel from "../../components/supply";
+import WithDrawModel from "../../components/withdraw";
+import RepayModel from "../../components/repay";
+import BorrowModel from "../../components/borrow";
 
 const Home = () => {
+  const dispatch = useDispatch();
+
   return (
     <div className="content">
       <div className="text-white text-center dashboard">
@@ -138,10 +146,25 @@ const Home = () => {
                     <Switch defaultChecked />
                   </td>
                   <td className="text-right">
-                    <button className="btn px-2 py-2 mr-2 text-sm activeBtn">
+                    <button
+                      className="btn px-2 py-2 mr-2 text-sm activeBtn"
+                      onClick={() =>
+                        dispatch({ type: "CHANGE_SUPPLY_MODEL", payload: true })
+                      }
+                    >
                       Supply
                     </button>
-                    <button className="btn px-2 py-2 text-sm">Withdraw</button>
+                    <button
+                      className="btn px-2 py-2 text-sm"
+                      onClick={() =>
+                        dispatch({
+                          type: "CHANGE_WITHDRAW_MODEL",
+                          payload: true,
+                        })
+                      }
+                    >
+                      Withdraw
+                    </button>
                   </td>
                 </tr>
                 <tr>
@@ -284,10 +307,25 @@ const Home = () => {
                     <Switch defaultChecked />
                   </td>
                   <td className="text-right">
-                    <button className="btn px-2 py-2 mr-2 text-sm activeBtn">
+                    <button className="btn px-2 py-2 mr-2 text-sm activeBtn"  onClick={() =>
+                        dispatch({
+                          type: "CHANGE_BORROW_MODEL",
+                          payload: true,
+                        })
+                      }>
                       Borrow
                     </button>
-                    <button className="btn px-2 py-2 text-sm">Repay</button>
+                    <button
+                      className="btn px-2 py-2 text-sm"
+                      onClick={() =>
+                        dispatch({
+                          type: "CHANGE_REPAY_MODEL",
+                          payload: true,
+                        })
+                      }
+                    >
+                      Repay
+                    </button>
                   </td>
                 </tr>
                 <tr>
@@ -503,6 +541,10 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <SupplyModel />
+      <WithDrawModel />
+      <RepayModel />
+      <BorrowModel />
     </div>
   );
 };

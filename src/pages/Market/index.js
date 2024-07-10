@@ -1,4 +1,5 @@
 import { Switch, Checkbox } from "antd";
+import { Link } from "react-router-dom";
 
 const Market = () => {
   return (
@@ -124,7 +125,9 @@ const Market = () => {
                   </td>
                   <td>80.67%</td>
                   <td className="text-right">
-                    <button className="btn px-2 py-2 text-sm">Detail</button>
+                    <Link to="/details">
+                      <button className="btn px-2 py-2 text-sm">Detail</button>
+                    </Link>
                   </td>
                 </tr>
               </tbody>

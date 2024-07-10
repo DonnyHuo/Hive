@@ -9,7 +9,7 @@ import { chainList } from "./utils/config";
 import { useDispatch } from "react-redux";
 import Market from "./pages/Market";
 import Liquidation from "./pages/Liquidation";
-import Details from "./pages/Dashboard/details";
+import Details from "./pages/Details";
 
 function App() {
   const { chainId } = useWeb3ModalAccount();

@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import SnipingModel from '../../components/sniping'
 
 const Liquidation = () => {
+  const dispatch = useDispatch();
   return (
     <div className="content">
       <div className="text-white text-center liquidation">
@@ -182,7 +185,15 @@ const Liquidation = () => {
                     </div>
                   </td>
                   <td className="text-right">
-                    <button className="btn btn px-2 py-2 text-sm">
+                    <button
+                      className="btn btn px-2 py-2 text-sm"
+                      onClick={() => {
+                        dispatch({
+                          type: "CHANGE_SNIPING_MODEL",
+                          payload: true,
+                        });
+                      }}
+                    >
                       <img
                         className="w-5 mx-4"
                         src={require("../../asserts/imgs/alarm.png")}
@@ -195,6 +206,7 @@ const Liquidation = () => {
           </div>
         </div>
       </div>
+      <SnipingModel />
     </div>
   );
 };
