@@ -524,7 +524,7 @@ const Header = () => {
       <div className="flex items-center">
         {isConnected && location.pathname !== "/" && (
           <button
-            className={`rounded-full p-2 text-sm mr-2 flex items-center border ${
+            className={`btnStyle p-2 text-sm mr-2 flex items-center border ${
               !selectNetworkIcon(chainId) ? "border-red-700" : "_border"
             }`}
             onClick={() => open({ view: "Networks" })}
@@ -565,7 +565,7 @@ const Header = () => {
           </Link>
         ) : (
           <button
-            className={`_border rounded-xl p-2 md:pl-4 md:pr-4 text-sm ${
+            className={`btnStyle rounded-xl p-2 md:pl-4 md:pr-4 text-sm ${
               address ? "_borderW" : "_borderS pl-4 pr-4"
             }`}
           >
@@ -603,13 +603,13 @@ const Header = () => {
         )}
         {location.pathname !== "/" && (
           <div
-            className="_hiddenP"
+            className="_hiddenP p-2 ml-2 btnStyle"
             onClick={() => {
               setOpenDrawer(true);
             }}
           >
             <img
-              className="w-5 ml-3"
+              className="w-5"
               src={require("../../asserts/imgs/menu.png")}
             />
           </div>
@@ -631,13 +631,7 @@ const Header = () => {
             <div className="text-xl ml-2">Hive</div>
           </div>
           <div
-            className="p-2"
-            style={{
-              background: "rgba(216,216,216,0)",
-              boxShadow: "inset 0px 1px 8px 4px rgba(255,255,255,0.1)",
-              borderRadius: "10px",
-              border: "1px solid rgba(255,255,255,0.25)",
-            }}
+            className="p-2 btnStyle"
           >
             <img
               className="w-4"

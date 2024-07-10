@@ -1260,6 +1260,13 @@ input {
   }
 }
 
+.btnStyle{
+  background: rgba(216,216,216,0);
+  box-shadow: inset 0px 1px 8px 4px rgba(255,255,255,0.1);
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.25)
+}
+
 @media screen and (min-width: 500px) and (max-width: 5000px) {
   .ant-modal-root .ant-modal-centered .ant-modal {
     width: 420px;
