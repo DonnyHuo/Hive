@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const App = () => {
   return (
     <div className="contentHome">
@@ -12,9 +14,12 @@ const App = () => {
             capital utilization.
           </p>
         </div>
-        <button className="mt-10 _borderS px-6 py-3 rounded-full">
-          Launch App
-        </button>
+        <Link to="/dashboard">
+          <button className="mt-10 _borderS px-6 py-3 rounded-full flex items-center justify-center m-auto">
+            <span>Launch App</span>
+            <img className="w-5" src={require("../../asserts/imgs/go.png")} />
+          </button>
+        </Link>
       </div>
     </div>
   );

@@ -560,7 +560,7 @@ const Header = () => {
         )}
 
         {location.pathname === "/" ? (
-          <Link to="/dashboard">
+          <Link to="/dashboard" className="_hiddenM">
             <button className="launchApp">Launch APP</button>
           </Link>
         ) : (
@@ -601,96 +601,86 @@ const Header = () => {
             )}
           </button>
         )}
+        {location.pathname !== "/" && (
+          <div
+            className="_hiddenP"
+            onClick={() => {
+              setOpenDrawer(true);
+            }}
+          >
+            <img
+              className="w-5 ml-3"
+              src={require("../../asserts/imgs/menu.png")}
+            />
+          </div>
+        )}
       </div>
       <Drawer
-        width={"80vw"}
+        width={"100vw"}
         closeIcon={false}
         onClose={onClose}
         open={openDrawer}
       >
-        <div className="drawerTitle">
-          <div className="h-10 flex align-center justify-between">
+        <div className="drawerTitle Medium">
+          <div className="h-16 flex items-center">
             <img
               className="h-7 mt-1 mb-1"
               src={require("../../asserts/imgs/logo.png")}
               alt=""
             />
-            <div className="leading-6">Hive</div>
+            <div className="text-xl ml-2">Hive</div>
           </div>
-          <img
-            className="w-5 mr-1"
-            src={require("../../asserts/img/drawerClose.png")}
-            onClick={onClose}
-            alt=""
-          />
+          <div
+            className="p-2"
+            style={{
+              background: "rgba(216,216,216,0)",
+              boxShadow: "inset 0px 1px 8px 4px rgba(255,255,255,0.1)",
+              borderRadius: "10px",
+              border: "1px solid rgba(255,255,255,0.25)",
+            }}
+          >
+            <img
+              className="w-4"
+              src={require("../../asserts/img/drawerClose.png")}
+              onClick={onClose}
+              alt=""
+            />
+          </div>
         </div>
-        <div className="text-lg">
-          <p className="pt-5 pb-5" onClick={onClose}>
+        <div className="text-lg Medium">
+          <p className="pt-5 pb-2 ml-6 text">Menu</p>
+          <p className="pt-2 pb-5" onClick={onClose}>
             <Link
-              className={`ml-6 mr-6 flex items-center justify-between ${
-                location.pathname === "/" && location.search === ""
-                  ? "_active"
-                  : ""
+              className={`ml-6 mr-6  flex items-center justify-between ${
+                location.pathname === "/dashboard" ? "activeTitle" : ""
               }`}
-              to="/"
+              to="/dashboard"
             >
-              <span>{t("header.Lottery")}</span>
-              <img
-                className="w-4"
-                src={require("../../asserts/img/drawerRight.png")}
-                alt=""
-              />
+              <span>Dashboard</span>
+            </Link>
+          </p>
+          <p className="pt-2 pb-5" onClick={onClose}>
+            <Link
+              className={`ml-6 mr-6  flex items-center justify-between ${
+                location.pathname === "/market" ? "activeTitle" : ""
+              }`}
+              to="/market"
+            >
+              <span>Markets</span>
+            </Link>
+          </p>
+          <p className="pt-2 pb-5" onClick={onClose}>
+            <Link
+              className={`ml-6 mr-6  flex items-center justify-between ${
+                location.pathname === "/liquidation" ? "activeTitle" : ""
+              }`}
+              to="/liquidation"
+            >
+              <span>Liquidation</span>
             </Link>
           </p>
 
-          <p className="pt-5 pb-5" onClick={onClose}>
-            <Link
-              className={`ml-6 mr-6  flex items-center justify-between ${
-                location.pathname === "/referral" ? "_active" : ""
-              }`}
-              to="/referral"
-            >
-              <span>{t("header.Referral")}</span>
-              <img
-                className="w-4"
-                src={require("../../asserts/img/drawerRight.png")}
-                alt=""
-              />
-            </Link>
-          </p>
-          <p className="pt-5 pb-5" onClick={onClose}>
-            <Link
-              className={`ml-6 mr-6  flex items-center justify-between ${
-                location.pathname === "/tutorials" ? "_active" : ""
-              }`}
-              to="/tutorials"
-            >
-              <span>{t("header.Tutorials")}</span>
-              <img
-                className="w-4"
-                src={require("../../asserts/img/drawerRight.png")}
-                alt=""
-              />
-            </Link>
-          </p>
-          <p className="pt-5 pb-5" onClick={onClose}>
-            <Link
-              className={`ml-6 mr-6 flex items-center justify-between ${
-                location.pathname === "/" && location.search === "?reward"
-                  ? "_active"
-                  : ""
-              }`}
-              to="/?reward"
-            >
-              <span>{t("lottery.tabs.MyReward")}</span>
-              <img
-                className="w-4"
-                src={require("../../asserts/img/drawerRight.png")}
-                alt=""
-              />
-            </Link>
-          </p>
-          <p
+          {/* <p
             className="pt-5 pb-5"
             onClick={() => setShowList((state) => (state = !state))}
           >
@@ -706,10 +696,10 @@ const Header = () => {
               </div>
             </div>
           </p>
-          {showList && <LangList />}
+          {showList && <LangList />} */}
         </div>
 
-        <div className="flex items-center justify-around absolute bottom-8 w-full">
+        {/* <div className="flex items-center justify-around absolute bottom-8 w-full">
           <div
             className="rounded-xl w-1/4 h-12"
             style={{ background: "#2a2539" }}
@@ -758,7 +748,7 @@ const Header = () => {
               />
             </a>
           </div>
-        </div>
+        </div> */}
       </Drawer>
       <Modal
         title={t("header.JoinUs")}

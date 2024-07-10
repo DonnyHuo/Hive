@@ -225,7 +225,7 @@ input {
 }
 .ant-progress .ant-progress-inner {
   width: 100%;
-  background-color: #322E2D;
+  background-color: #322e2d;
   /* border: 1px solid rgba(168, 81, 255, 0.4); */
 }
 .ant-progress-text {
@@ -237,7 +237,7 @@ input {
 }
 .ant-progress .ant-progress-bg {
   height: 4px !important;
-  background: linear-gradient( 270deg, #FFFFFF 0%, #FF4B01 100%);
+  background: linear-gradient(270deg, #ffffff 0%, #ff4b01 100%);
   /* box-shadow: 0px 4px 4px 0px rgba(255, 255, 255, 0.6) inset; */
 }
 ._yellow {
@@ -336,7 +336,7 @@ input {
   background-color: #e6a62c;
 }
 .ant-btn-default {
-  background: #FF4B01;
+  background: #ff4b01;
   color: #fff;
 }
 ._backgroundTickets {
@@ -866,30 +866,48 @@ input {
 }
 
 .blueTips {
-  background: linear-gradient( 180deg, rgba(63,115,255,0) 0%, rgba(63,115,255,0.15) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(63, 115, 255, 0) 0%,
+    rgba(63, 115, 255, 0.15) 100%
+  );
   border-radius: 10px;
   border: 1px solid rgba(63, 115, 255, 0.42);
-  color: #3F73FF;
+  color: #3f73ff;
 }
 .underline {
   text-decoration: underline;
 }
 
-.ant-progress .ant-progress-inner:not(.ant-progress-circle-gradient) .ant-progress-circle-path {
-  color: #FF4B01!important;
+.ant-progress
+  .ant-progress-inner:not(.ant-progress-circle-gradient)
+  .ant-progress-circle-path {
+  color: #ff4b01 !important;
 }
 .ant-progress.ant-progress-circle .ant-progress-text {
   color: #fff;
   font-family: Gotham-Medium;
 }
-.listBorder{
+.listBorder {
   border: 1px solid #322e2d;
 }
 .orange {
-  color: #FFC55F;
+  color: #ffc55f;
 }
 
 @media screen and (min-width: 0px) and (max-width: 500px) {
+  .dashboard,
+  .market,
+  .liquidation {
+    max-width: 90%;
+    background: none;
+  }
+  .dashboardTitle {
+    padding-top: 20px;
+  }
+  .boxList {
+    width: 100%;
+  }
   .contentHome {
     min-height: 100vh;
     background-image: url("../imgs/homeBg2.png");
@@ -1168,7 +1186,7 @@ input {
     padding: 0;
   }
   .ant-drawer .ant-drawer-content {
-    background: rgba(24, 20, 35, 1);
+    background: rgba(17, 17, 17, 0.9);
     color: #ffffff;
   }
   .ant-drawer .drawerTitle {
