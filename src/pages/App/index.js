@@ -7,12 +7,10 @@ const App = () => {
         <div className="text-3xl">
           <p>100% capital utilization, creating more value for your wealth!</p>
         </div>
-        <div className="text-base opacity-50 pt-5">
-          <p>
-            Maximize wealth with smart lending and efficient fund management.
-            Join our platform for optimal returns and lasting value with 100%
-            capital utilization.
-          </p>
+        <div className="text-base opacity-50 pt-5 px-5">
+          Maximize wealth with smart lending and efficient fund management. Join
+          our platform for optimal returns and lasting value with 100% capital
+          utilization.
         </div>
         <Link to="/dashboard">
           <button className="mt-10 _borderS px-6 py-3 rounded-full  flex items-center justify-center m-auto">

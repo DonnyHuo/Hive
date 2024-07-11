@@ -662,6 +662,7 @@ input {
   left: 50%;
   bottom: 100px;
   transform: translate(-50%);
+  max-width: 90%;
 }
 .dashboard {
   max-width: 80%;
