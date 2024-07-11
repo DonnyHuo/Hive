@@ -206,9 +206,11 @@ const Market = () => {
                 <span>0%</span>
               </div>
               <div className="mt-5">
-                <button className="w-full p-2 rounded-xl listBox">
-                  View details
-                </button>
+                <Link to="/details">
+                  <button className="w-full p-2 rounded-xl listBox">
+                    View details
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -247,9 +249,11 @@ const Market = () => {
                 <span>0%</span>
               </div>
               <div className="mt-5">
-                <button className="w-full p-2 rounded-xl listBox">
-                  View details
-                </button>
+                <Link to="/details">
+                  <button className="w-full p-2 rounded-xl listBox">
+                    View details
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
