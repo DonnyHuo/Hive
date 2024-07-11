@@ -22,9 +22,9 @@ const networks = chainList
 
 // 3. Create a metadata object
 const metadata = {
-  name: "oneU",
-  description: "Win crypro lotteries with just One Usdt.",
-  url: "https://1usdt.io", // origin must match your domain & subdomain
+  name: "Hive",
+  description: "",
+  url: "", // origin must match your domain & subdomain
   icons: [""],
 };
 
