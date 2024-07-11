@@ -896,9 +896,13 @@ input {
 }
 
 @media screen and (min-width: 0px) and (max-width: 500px) {
+  .noBorder {
+    border: none;
+  }
   .dashboard,
   .market,
-  .liquidation {
+  .liquidation,
+  .details {
     max-width: 90%;
     background: none;
   }
