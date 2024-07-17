@@ -1,94 +1,38 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   useWeb3Modal,
   useWeb3ModalAccount,
   useWeb3ModalProvider,
   useDisconnect,
 } from "@web3modal/ethers5/react";
-import {
-  shortStr,
-  getContract,
-  getWriteContractLoad,
-  chainList,
-  checkNetWork,
-} from "../../utils";
-import { Drawer, notification, Button, Modal, Popover } from "antd";
-import { useSelector, useDispatch } from "react-redux";
-import poolManagerAbi from "../../asserts/abi/poolManagerAbi.json";
-import inviteAbi from "../../asserts/abi/inviteAbi.json";
+import { shortStr, getContract, chainList } from "../../utils";
+import { Drawer, notification, Popover } from "antd";
+// import { useSelector, useDispatch } from "react-redux";
 import erc20Abi from "../../asserts/abi/erc20Abi.json";
 import { ethers } from "ethers";
-import { useInterval } from "ahooks";
+// import { useInterval } from "ahooks";
 import { useTranslation } from "react-i18next";
-import { resources } from "../../config";
 
 const Header = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const { walletProvider } = useWeb3ModalProvider();
 
   const logoIcon = require("../../asserts/imgs/logo.png");
   const { address, chainId, isConnected } = useWeb3ModalAccount();
 
-  const { walletProvider } = useWeb3ModalProvider();
-
   const { open } = useWeb3Modal();
 
-  // const { switchNetwork } = useSwitchNetwork();
-
-  // useEffect(() => {
-  //   isConnected && chainId && switchNetwork(chainList.filter(list=> list.chainId == chainId)[0].chainId);
-  // }, [chainId, isConnected]);
-
   const selectNetworkIcon = (chainId) => {
-    return chainList.filter((list) => list.chainId == chainId)[0];
+    return chainList.filter((list) => list.chainId === chainId)[0];
   };
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
-  const showDrawer = () => {
-    setOpenDrawer(true);
-  };
-
   const onClose = () => {
     setOpenDrawer(false);
-    setShowList(false);
   };
-
-  // get userID fun
-  const dispatch = useDispatch();
-  const inviteContract = useSelector((state) => state.inviteContract);
-
-  const reModalOpen = useSelector(
-    (state) => state.reModalOpen,
-    (pre, next) => pre === next
-  );
-
-  const getUserId = async () => {
-    const userId = await getContract(
-      walletProvider,
-      inviteContract,
-      inviteAbi,
-      "getUserId",
-      address
-    );
-    dispatch({ type: "CHANGE_USER", payload: userId.toString() });
-  };
-
-  useEffect(() => {
-    // get userId
-    address && chainId
-      ? getUserId()
-      : dispatch({ type: "CHANGE_USER", payload: "--" });
-    // save address
-    dispatch({ type: "CHANGE_ADDRESS", payload: address });
-  }, [address, chainId]);
-
-  const [code, setCode] = useState("");
-  const [signUpLoading, setSignUpLoading] = useState(false);
-
-  const userId = useSelector((state) => state.userId);
 
   const [openUserAccount, setOpenUserAccount] = useState(false);
 
@@ -100,129 +44,44 @@ const Header = () => {
     zIndex: 100000,
   });
 
-  const inviteCode = location.search.split("?code=")[1] * 1;
-  const [openTips, setOpenTips] = useState(true);
-
-  const inviteFun = () => {
-    if (isConnected) {
-      if (inviteCode * 1 > 0) {
-        if (userId * 1 <= 0) {
-          setCode(inviteCode);
-          dispatch({ type: "CHANGE_REMODAL", payload: true });
-        } else {
-          setOpenTips(true);
-          if (openTips) {
-            notification.open({
-              message: t("header.hadRegister"),
-              duration: 3,
-            });
-          }
-          dispatch({ type: "CHANGE_REMODAL", payload: false });
-          setOpenTips(false);
-        }
-      }
-    } else {
-      if (inviteCode * 1 > 0) {
-        setCode(inviteCode);
-        dispatch({ type: "CHANGE_REMODAL", payload: true });
-      }
-    }
-  };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      inviteFun();
-    }, 2000);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [isConnected, address, inviteCode, openTips, userId]);
-
-  // user signup
-  const signUp = () => {
-    setSignUpLoading(true);
-    getWriteContractLoad(
-      walletProvider,
-      inviteContract,
-      inviteAbi,
-      "signUp",
-      code ? code * 1 : 0
-    )
-      .then((res) => {
-        setSignUpLoading(false);
-        getUserId();
-        setCode("");
-        api["success"]({ message: t("header.bindSuccess") });
-        setTimeout(() => {
-          setOpenTips(false);
-          dispatch({ type: "CHANGE_REMODAL", payload: false });
-        }, 2000);
-      })
-      .catch((err) => {
-        setSignUpLoading(false);
-        api["error"]({ message: t("header.bindFail") });
-        console.log(err);
-      });
-  };
-
   const handleOpenChange = (newOpen) => {
     setOpenUserAccount(newOpen);
   };
 
   const { disconnect } = useDisconnect();
 
-  const [ETHBalance, setETHBalance] = useState("--");
-  const [USDTBalance, setUSDTBalance] = useState("--");
+  const [usdt, setUsdt] = useState("0");
+  const [bnbBalance, setBnbBalance] = useState("0");
+
+  
+
   const getBalance = async () => {
-    const ethersProvider = new ethers.providers.Web3Provider(walletProvider);
-    const balanceOf = await ethersProvider.getBalance(address);
-    const balance = parseFloat(
-      (ethers.utils.formatUnits(balanceOf, 18) * 1).toFixed(3)
-    );
-    setETHBalance(balance);
-  };
-
-  const poolManager = useSelector((state) => state.poolManager);
-
-  const getUSDTBalance = async () => {
-    const usdt = await getContract(
-      walletProvider,
-      poolManager,
-      poolManagerAbi,
-      "usdt"
-    );
     const decimals = await getContract(
       walletProvider,
-      usdt,
+      "0x55d398326f99059ff775485246999027b3197955",
       erc20Abi,
       "decimals"
     );
-    const balanceOf = await getContract(
+    const balance = await getContract(
       walletProvider,
-      usdt,
+      "0x55d398326f99059ff775485246999027b3197955",
       erc20Abi,
       "balanceOf",
       address
     );
-    const balance = parseFloat(
-      (ethers.utils.formatUnits(balanceOf, decimals) * 1).toFixed(3)
+    setUsdt(ethers.utils.formatUnits(balance, decimals) * 1);
+    
+    const ethersProvider = new ethers.providers.Web3Provider(walletProvider);
+    const balanceOf = await ethersProvider.getBalance(address);
+    const bnbBalance = parseFloat(
+      (ethers.utils.formatUnits(balanceOf, 18) * 1).toFixed(3)
     );
-    setUSDTBalance(balance);
+    setBnbBalance(bnbBalance);
   };
 
   useEffect(() => {
-    address && chainId ? getBalance() : setETHBalance("--");
-    address && chainId ? getUSDTBalance() : setUSDTBalance("--");
-  }, [address, chainId]);
-
-  useInterval(
-    () => {
-      address ? getBalance() : setETHBalance("--");
-      address ? getUSDTBalance() : setUSDTBalance("--");
-    },
-    5000,
-    { immediate: true }
-  );
+    address && getBalance();
+  }, [address]);
 
   const AccountContent = () => {
     const copy = (address) => {
@@ -265,204 +124,28 @@ const Header = () => {
               />
               <span className="ml-2">USDT</span>
             </div>
-            <div>{USDTBalance}</div>
+            <div>{usdt}</div>
           </div>
           <div className="flex items-center justify-between mt-5 border-zinc-800">
             <div className="flex items-center">
               <img
                 className="w-6"
-                src={require("../../asserts/img/ETH.png")}
+                src={require("../../asserts/imgs/BNB.png")}
                 alt=""
               />
-              <span className="ml-2">ETH</span>
+              <span className="ml-2">BNB</span>
             </div>
-            <div>{ETHBalance}</div>
+            <div>{bnbBalance}</div>
           </div>
         </div>
       </div>
     );
   };
 
-  const [openCommunity, setOpenCommunity] = useState(false);
-  const OpenCommunityChange = (newOpen) => {
-    setOpenCommunity(newOpen);
-  };
-  const Community = () => {
-    return (
-      <>
-        <div className="p-2 border-b border-neutral-800 font-bold">
-          <a
-            href="https://discord.com"
-            target="_blank"
-            className="flex items-center py-2 pl-4 pr-8 rounded-xl cursor-pointer list"
-          >
-            <img
-              className="w-5 mr-2"
-              src={require("../../asserts/img/Discord.png")}
-              alt=""
-            />
-            Discord
-          </a>
-        </div>
-        <div className="p-2 border-b border-neutral-800 font-bold">
-          <a
-            href="https://twitter.com"
-            target="_blank"
-            className="flex items-center py-2 pl-4 pr-8 rounded-xl cursor-pointer list"
-          >
-            <img
-              className="w-5 mr-2"
-              src={require("../../asserts/img/Twitter.png")}
-              alt=""
-            />
-            Twitter
-          </a>
-        </div>
-        <div className="p-2 font-bold">
-          <a
-            href="https://github.com/1ustd"
-            target="_blank"
-            className="flex items-center py-2 pl-4 pr-8 rounded-xl cursor-pointer list"
-          >
-            <img
-              className="w-5 mr-2"
-              src={require("../../asserts/img/Github.png")}
-              alt=""
-            />
-            Github
-          </a>
-        </div>
-      </>
-    );
-  };
-
-  const [openLang, setOpenLang] = useState(false);
-  const langOpenChange = (value) => {
-    setOpenLang(value);
-  };
-
-  const [currentLang, setCurrentLang] = useState(i18n.language);
-
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     setIsMobile(window.innerWidth <= 768);
   }, [window.innerWidth]);
-
-  const LangList = () => {
-    const langArr = [];
-    for (let key in resources) {
-      langArr.push(key);
-    }
-
-    return (
-      <div className="cursor-pointer">
-        {langArr.map((list, index) => {
-          return (
-            <div key={list}>
-              {!isMobile ? (
-                <div className="text-center _langList">
-                  <button
-                    className={`rounded-md px-2 h-8 m-2 ${
-                      i18n.language == list && "active"
-                    }`}
-                    onClick={() => {
-                      setOpenLang(false);
-                      setCurrentLang(list);
-                      i18n.changeLanguage(list);
-                      window.localStorage.setItem("lang", list);
-                    }}
-                  >
-                    {showLang(list)}
-                  </button>
-                </div>
-              ) : (
-                <div className="text-left _text text-sm">
-                  <div
-                    className={
-                      "flex item-center justify-between rounded-md px-4 h-8 m-2"
-                    }
-                    onClick={() => {
-                      setOpenLang(false);
-                      setCurrentLang(list);
-                      i18n.changeLanguage(list);
-                      window.localStorage.setItem("lang", list);
-                    }}
-                  >
-                    <span>{showLang(list)}</span>
-                    {i18n.language == list && (
-                      <img
-                        className="w-5 h-5"
-                        src={require("../../asserts/img/selected.png")}
-                      />
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
-  const showLang = (lang) => {
-    switch (lang) {
-      case "en":
-        return "English";
-      case "ko":
-        return "한국인";
-      case "vi":
-        return "Tiếng Việt";
-      case "zh-TW":
-        return "繁體中文";
-      default:
-        return "English";
-    }
-  };
-
-  const [showList, setShowList] = useState(false);
-
-  const [faucetModalOpen, setFaucetModalOpen] = useState(false);
-
-  const [mintLoading, setMintLoading] = useState(false);
-  const mintUSDT = async () => {
-    if (!(await checkNetWork())) {
-      return open({ view: "Networks" });
-    }
-    const usdt = await getContract(
-      walletProvider,
-      poolManager,
-      poolManagerAbi,
-      "usdt"
-    );
-
-    const decimals = await getContract(
-      walletProvider,
-      usdt,
-      erc20Abi,
-      "decimals"
-    );
-    setMintLoading(true);
-
-    await getWriteContractLoad(
-      walletProvider,
-      usdt,
-      erc20Abi,
-      "mint",
-      ethers.utils.parseUnits("1000", decimals)
-    )
-      .then((res) => {
-        setMintLoading(false);
-        api["success"]({ message: t("header.getSuccess") });
-        setTimeout(() => {
-          setFaucetModalOpen(false);
-        }, 2000);
-      })
-      .catch((err) => {
-        setMintLoading(false);
-        api["error"]({ message: t("header.getFail") });
-      });
-  };
 
   return (
     <div className="flex items-center justify-between pl-5 pr-5 text-white relative _header">
@@ -608,10 +291,7 @@ const Header = () => {
               setOpenDrawer(true);
             }}
           >
-            <img
-              className="w-5"
-              src={require("../../asserts/imgs/menu.png")}
-            />
+            <img className="w-5" src={require("../../asserts/imgs/menu.png")} />
           </div>
         )}
       </div>
@@ -630,9 +310,7 @@ const Header = () => {
             />
             <div className="text-xl ml-2">Hive</div>
           </div>
-          <div
-            className="p-2 btnStyle"
-          >
+          <div className="p-2 btnStyle">
             <img
               className="w-4"
               src={require("../../asserts/img/drawerClose.png")}
@@ -744,130 +422,6 @@ const Header = () => {
           </div>
         </div> */}
       </Drawer>
-      <Modal
-        title={t("header.JoinUs")}
-        destroyOnClose={true}
-        centered
-        maskClosable={false}
-        open={reModalOpen}
-        onCancel={() => {
-          dispatch({ type: "CHANGE_REMODAL", payload: false });
-          setCode("");
-          navigate();
-        }}
-        footer={false}
-        closeIcon={
-          <img
-            className="w-6 mt-3 mr-2"
-            src={require("../../asserts/img/closeModal.png")}
-            alt=""
-          />
-        }
-        width={420}
-        zIndex={3000}
-      >
-        <p className="mt-5 _nav-title">{t("header.JoinUsDesc")}</p>
-        <div>
-          <input
-            value={code}
-            onChange={(value) => setCode(value.target.value)}
-            className="w-full h-12 rounded-xl outline-none text-white pl-4 pr-4 text-sm mt-5"
-            style={{ background: "rgba(42, 37, 57, 1)" }}
-            placeholder={t("header.EnterInviteCode")}
-          />
-        </div>
-        {contextHolder}
-        <Button
-          className="w-full h-12 mt-5 _background-gradient2 text-white rounded-full text-sm pt-2 pb-2 pl-5 pr-5 border-0"
-          loading={signUpLoading}
-          onClick={() => {
-            address ? signUp() : open();
-          }}
-        >
-          {address ? t("header.SignUp") : t("lottery.ConnectWallet")}
-        </Button>
-      </Modal>
-      <Modal
-        title={t("header.OneUSDTTestnetFaucet")}
-        destroyOnClose={true}
-        centered
-        maskClosable={true}
-        open={faucetModalOpen}
-        onCancel={() => {
-          setFaucetModalOpen(false);
-        }}
-        footer={false}
-        closeIcon={
-          <img
-            className="w-6 mt-2 mr-2"
-            src={require("../../asserts/img/closeModal.png")}
-            alt=""
-          />
-        }
-        width={430}
-        zIndex={3000}
-      >
-        <div
-          className={`flex items-center justify-around text-center ${
-            currentLang == "ko" && "_flex-col h-auto"
-          }`}
-        >
-          <div
-            className={`h-40 flex flex-col items-center justify-between ${
-              currentLang == "ko" && "w-full"
-            }`}
-          >
-            <div
-              className="flex items-center justify-center rounded-full w-14 h-14"
-              style={{ boxShadow: "0px 3px 6px 0px #A301FF inset" }}
-            >
-              <img
-                className="w-10"
-                src={require("../../asserts/img/ETH.png")}
-                alt=""
-              />
-            </div>
-            <div className="w-11/12 text-xs _title opacity-80 my-4">
-              {t("header.TestnetFaucetDesc1")}
-            </div>
-            <a
-              target="_blank"
-              href="https://www.alchemy.com/faucets/ethereum-sepolia"
-            >
-              <button className="_borderS1 rounded-full px-4 py-2 font-bold">
-                {t("header.GetETH")}
-              </button>
-            </a>
-          </div>
-          <div
-            className={`h-40 flex flex-col items-center justify-between ${
-              currentLang == "ko" && "_mt-6"
-            }`}
-          >
-            <div
-              className="flex items-center justify-center rounded-full w-14 h-14"
-              style={{ boxShadow: "0px 3px 6px 0px #A301FF inset" }}
-            >
-              <img
-                className="w-10"
-                src={require("../../asserts/img/USDT.png")}
-                alt=""
-              />
-            </div>
-            <div className="w-11/12 text-xs _title opacity-80 my-4">
-              {t("header.TestnetFaucetDesc2")}
-            </div>
-            {contextHolder}
-            <Button
-              loading={mintLoading}
-              className="_background-gradient2 rounded-full px-4 h-10 font-bold"
-              onClick={mintUSDT}
-            >
-              {t("header.GetUSDT")}
-            </Button>
-          </div>
-        </div>
-      </Modal>
     </div>
   );
 };
