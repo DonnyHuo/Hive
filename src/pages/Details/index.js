@@ -85,13 +85,13 @@ const Details = () => {
             <span className="text-2xl">Tether</span>
             <button className="border mx-2 p-1">
               <img
-                className="w-3"
+                className="w-4"
                 src={require("../../asserts/imgs/share.png")}
               />
             </button>
             <button className="border p-1">
               <img
-                className="w-3"
+                className="w-4"
                 src={require("../../asserts/imgs/wallet.png")}
               />
             </button>

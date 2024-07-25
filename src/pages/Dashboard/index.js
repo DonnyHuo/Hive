@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Switch, Checkbox } from "antd";
+import { Switch, Checkbox, Table } from "antd";
 import SupplyModel from "../../components/supply";
 import WithDrawModel from "../../components/withdraw";
 import RepayModel from "../../components/repay";
 import BorrowModel from "../../components/borrow";
+import { render } from "@testing-library/react";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,121 @@ const Home = () => {
       setShowAll(true);
     }
   });
+
+  const columns = [
+    {
+      title: "Asset",
+      dataIndex: "name",
+      sorter: {
+        compare: (a, b) => a.name.length - b.name.length,
+        multiple: true,
+      },
+      render: (_, record) => (
+        <div className="flex items-center">
+          <img
+            className="w-6 mr-2"
+            src={require(`../../asserts/imgs/BNB.png`)}
+          />
+          <span>{record.name}</span>
+        </div>
+      ),
+    },
+    {
+      title: "Balance",
+      dataIndex: "balance",
+      sorter: {
+        compare: (a, b) => a.balance - b.balance,
+        multiple: true,
+      },
+      render: (_, record) => (
+        <div>
+          <p>{record.balance}</p>
+          <p className="text Light text-sm">$2000.00</p>
+        </div>
+      ),
+    },
+    {
+      title: "APY",
+      dataIndex: "apy",
+      sorter: {
+        compare: (a, b) => a.apy - b.apy,
+        multiple: true,
+      },
+      render: (_, record) => <div className="flex items-center">{record.apy}%</div>,
+    },
+    {
+      title: (
+        <div className="flex items-center">
+          <span>Collateral</span>
+          <img
+            className="w-4 ml-1"
+            src={require("../../asserts/imgs/tips.png")}
+          />
+        </div>
+      ),
+      dataIndex: "collateral",
+      sorter: {
+        compare: (a, b) => a.collateral - b.collateral,
+        multiple: true,
+      },
+      render: (_, record) => (
+        <div className="flex items-center">
+          <Switch defaultChecked={record.collateral} />
+        </div>
+      ),
+    },
+    {
+      title: "Actions",
+      dataIndex: "",
+      align:"right",
+      render: (_, record) => (
+        <div className="flex items-center justify-end">
+          <button
+            className="btn px-2 py-2 mr-2 text-sm activeBtn"
+            onClick={() =>
+              dispatch({
+                type: "CHANGE_SUPPLY_MODEL",
+                payload: true,
+              })
+            }
+          >
+            Supply
+          </button>
+          <button
+            className="btn px-2 py-2 text-sm"
+            onClick={() =>
+              dispatch({
+                type: "CHANGE_WITHDRAW_MODEL",
+                payload: true,
+              })
+            }
+          >
+            Withdraw
+          </button>
+        </div>
+      ),
+    },
+  ];
+  const data = [
+    {
+      key: "1",
+      name: "USDT",
+      apy: 10,
+      collateral: true,
+      balance: 0.0001
+    },
+    {
+      key: "2",
+      name: "BNB",
+      apy: 20,
+      collateral: false,
+      balance: 0.0201
+    },
+  ];
+  const onChange = (pagination, filters, sorter, extra) => {
+    // debugger
+    console.log("params", pagination, filters, sorter, extra);
+  };
 
   return (
     <div className="content">
@@ -105,7 +221,7 @@ const Home = () => {
                   />
                 </button>
               </div>
-              <table className="tables _hiddenM">
+              {/* <table className="tables _hiddenM">
                 <thead>
                   <tr>
                     <th>
@@ -227,7 +343,23 @@ const Home = () => {
                     </td>
                   </tr>
                 </tbody>
-              </table>
+              </table> */}
+
+              <Table
+                className="_hiddenM"
+                columns={columns}
+                dataSource={data}
+                onChange={onChange}
+                pagination={false}
+                showSorterTooltip={false}
+              >
+                <div>
+                  <button className="btn px-2 py-2 mr-2 text-sm activeBtn">
+                    Supply
+                  </button>
+                  <button className="btn px-2 py-2 text-sm">Withdraw</button>
+                </div>
+              </Table>
               <div className="_hiddenP mt-6">
                 <div className="flex items-center">
                   <img

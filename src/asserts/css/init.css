@@ -1272,6 +1272,61 @@ input {
   border: 1px solid rgba(255,255,255,0.25)
 }
 
+.ant-table-wrapper .ant-table {
+  background-color: transparent;
+  color: #fff;
+}
+.ant-table-wrapper .ant-table .ant-table-tbody {
+  font-weight: bold;
+  font-size: 16px;
+}
+.ant-table-wrapper .ant-table-thead >tr>th, .ant-table-wrapper .ant-table-thead >tr>td {
+  font-family: Gotham-Light;
+  color: rgba(255, 255, 255, 0.5);
+  background: transparent;
+}
+.ant-table-wrapper .ant-table-thead th.ant-table-column-sort {
+  background-color: transparent;
+}
+.ant-table-wrapper td.ant-table-column-sort {
+  background-color: transparent;
+}
+.ant-table-wrapper .ant-table-tbody .ant-table-row > .ant-table-cell-row-hover {
+  background-color: transparent;
+}
+.ant-table-wrapper .ant-table-thead th.ant-table-column-has-sorters:hover {
+  background-color: transparent;
+}
+.ant-table-wrapper .ant-table-thead >tr>th, .ant-table-wrapper .ant-table-thead >tr>td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1)
+}
+.ant-table-wrapper .ant-table-column-sorter {
+  color: rgba(255, 255, 255, 0.3);
+}
+.ant-table-wrapper .ant-table-column-sorter:hover {
+  color: #fff;
+}
+.ant-table-wrapper .ant-table-thead >tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before, .ant-table-wrapper .ant-table-thead >tr>td:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+  background-color: transparent;
+}
+.ant-table-wrapper .ant-table-column-sorter-up.active, .ant-table-wrapper .ant-table-column-sorter-down.active {
+  color: #fff;
+}
+.ant-table-wrapper .ant-table-tbody >tr >th, .ant-table-wrapper .ant-table-tbody >tr >td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.anticon {
+  color: rgba(255, 255, 255, 0.3);
+}
+.ant-table-wrapper .ant-table-column-title {
+  flex: none;
+}
+.ant-table-wrapper .ant-table-column-sorters {
+  justify-content:flex-start
+}
+
+
+
 @media screen and (min-width: 500px) and (max-width: 5000px) {
   .ant-modal-root .ant-modal-centered .ant-modal {
     width: 420px;
