@@ -21,6 +21,7 @@ const Home = () => {
     {
       title: "Asset",
       dataIndex: "name",
+      align: 'left',
       sorter: {
         compare: (a, b) => a.name.length - b.name.length,
         multiple: true,

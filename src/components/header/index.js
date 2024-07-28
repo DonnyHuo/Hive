@@ -95,14 +95,14 @@ const Header = () => {
           <div className="flex items-center" onClick={() => copy(address)}>
             <img
               className="w-7"
-              src={require("../../asserts/img/connect.png")}
+              src={require("../../asserts/imgs/connect.png")}
               alt=""
             />
             <span className="px-2">{shortStr(address)}</span>
 
             <img
               className="w-4 cursor-pointer"
-              src={require("../../asserts/img/copy.png")}
+              src={require("../../asserts/imgs/copy.png")}
               alt=""
             />
           </div>
@@ -119,7 +119,7 @@ const Header = () => {
             <div className="flex items-center">
               <img
                 className="w-6"
-                src={require("../../asserts/img/USDT.png")}
+                src={require("../../asserts/imgs/usdt.png")}
                 alt=""
               />
               <span className="ml-2">USDT</span>
@@ -222,7 +222,7 @@ const Header = () => {
               <>
                 <img
                   className="w-5 _hiddenP"
-                  src={require("../../asserts/img/warning.png")}
+                  src={require("../../asserts/imgs/warning.png")}
                   alt=""
                 />
 
@@ -266,7 +266,7 @@ const Header = () => {
                 <div className="flex items-center justify-between">
                   <img
                     className="w-5"
-                    src={require("../../asserts/img/connect.png")}
+                    src={require("../../asserts/imgs/connect.png")}
                     alt=""
                   />
                   <span className="pl-2 _hiddenM">
@@ -274,7 +274,7 @@ const Header = () => {
                   </span>
                   <img
                     className="w-3 ml-2 mt-0.5 _hiddenM"
-                    src={require("../../asserts/img/walletDown.png")}
+                    src={require("../../asserts/imgs/walletDown.png")}
                     alt=""
                   />
                 </div>
@@ -313,7 +313,7 @@ const Header = () => {
           <div className="p-2 btnStyle">
             <img
               className="w-4"
-              src={require("../../asserts/img/drawerClose.png")}
+              src={require("../../asserts/imgs/drawerClose.png")}
               onClick={onClose}
               alt=""
             />

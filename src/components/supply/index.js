@@ -21,7 +21,7 @@ const SupplyModal = () => {
       closeIcon={
         <img
           className="w-7 mt-3 mr-2"
-          src={require("../../asserts/img/closeModal.png")}
+          src={require("../../asserts/imgs/closeModal.png")}
           alt=""
         />
       }

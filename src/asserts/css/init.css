@@ -84,38 +84,6 @@ input {
 ._background-gradient4 {
   background: linear-gradient(to right, #1c172a 52.13%, #331951 101.14%);
 }
-._background-home {
-  background-image: url("../img/homeBg.png");
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-size: 680px;
-}
-._background-home2 {
-  background-image: url("../img/homeBg2.png");
-  background-repeat: no-repeat;
-  /* background-position: ; */
-  background-size: 100%;
-}
-
-._referralTitle {
-  background-image: url("../img/referralTitle.png");
-  background-repeat: no-repeat;
-  background-size: 135px;
-  background-position: 370px 58px;
-  font-weight: bold;
-}
-
-._background-tutorials {
-  background-image: url("../img/tutorialsBg.png");
-  background-repeat: no-repeat;
-  background-size: 100% 50%;
-}
-._backgroundLine {
-  background-image: url("../img/line2.png");
-  background-repeat: no-repeat;
-  background-size: 2px 40px;
-  background-position: 6px 26px;
-}
 ._background-code {
   /* background-color: rgba(42, 37, 57, 1); */
   border: 1px solid #3d3952;
@@ -339,13 +307,6 @@ input {
   background: #ff4b01;
   color: #fff;
 }
-._backgroundTickets {
-  background-image: url("../../asserts/img/number.png");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position: top center;
-  height: 190px;
-}
 
 ._background-gradient5 {
   background: linear-gradient(180deg, rgba(28, 23, 42, 0) 0%, #1c172a 100%);
@@ -370,12 +331,6 @@ input {
     rgba(28, 23, 42, 0.69) 1.44%,
     rgba(43, 36, 61, 0.35) 100%
   );
-}
-._tutorialsInfoBox {
-  background-image: url("../../asserts/img/wallet.png");
-  background-position: 98% 90%;
-  background-repeat: no-repeat;
-  background-size: 130px 130px;
 }
 
 .accountInfo {
@@ -457,13 +412,13 @@ input {
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  background-image: url("../../asserts/img/closeWallet.png");
+  background-image: url("../../asserts/imgs/closeWallet.png");
   background-position: center center;
   background-size: 16px 16px;
   background-repeat: no-repeat;
 }
 .closeWallet:hover {
-  background-image: url("../../asserts/img/closeWalletHover.png");
+  background-image: url("../../asserts/imgs/closeWalletHover.png");
 }
 .ant-notification {
   z-index: 111111;
@@ -1071,14 +1026,6 @@ input {
     background-size: 100px;
     background-position: 80% 38px;
   }
-  ._referralHome {
-    max-width: 1182px;
-    margin: 0 auto;
-    background-image: url("../../asserts/img/referralBg.png");
-    background-repeat: no-repeat;
-    background-size: 80%;
-    background-position: center center;
-  }
   ._marginAutoM {
     margin: 40px auto 0 auto;
   }
@@ -1254,12 +1201,6 @@ input {
   .ant-modal-root .ant-modal-centered .ant-modal {
     width: 90vw !important;
   }
-  ._background-referral {
-    background-image: url("../../asserts/img/referralBg.png");
-    background-repeat: no-repeat;
-    /* background-size: 40% 20%; */
-    background-position: 20% 0%;
-  }
   ._flexM2 {
     flex-direction: column;
   }
@@ -1359,11 +1300,5 @@ input {
     background-repeat: no-repeat;
     background-size: 420px;
     background-position: top right;
-  }
-
-  ._background-referral {
-    background-image: url("../../asserts/img/referralBg.png");
-    background-repeat: no-repeat;
-    background-size: 100%;
   }
 }
